@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+
+    <title>Form Validation</title>
+    <!-- Latest compiled and minified BootStarp CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  
+  <script>
+function submitForm() {
+            
+  var form_data = new FormData(document.getElementById("myform"));
+  form_data.append("label", "WEBUPLOAD");
+  $.ajax({
+      url: "upload.php",
+      type: "POST",
+      data: form_data,
+      processData:false,  // tell jQuery not to process the data
+      contentType: false   // tell jQuery not to set contentType
+  }).done(function( data ) {
+    console.log(data);
+    //Perform ANy action after successfuly post data
+	//alert("upload successfully");
+	window.location = "admin_view.html";
+  });
+  return false;     
+}
+</script>
+  	<script src="js/angular-1.3.js"></script>
+	<script src="js/angular_cookies.js"></script>
+	
+	</head>
+	<body  style="background-color: #EEEEEE" class="front bg-pattern-dark" 
+	ng-controller="myappCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+    <div id="page-wrapper" >
+      <div class="container" >
+        <h1>
+          Update Photo <br></h1>
+		  <p>1. First Page<br>
+		  2. Cost Page<br>
+		  3. Back Page
+        </p>
+       <form name="myForm" class="form-horizontal" id ="myform" action="#" 
+        onsubmit="return submitForm();" method="POST" enctype="multipart/form-datam">
+          <div class="panel panel-info">
+            <div class="panel-heading">Form</div>
+            <div class="panel-body">
+              <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name" class="col-md-4">ID</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" id="id1" 
+						name="cook_product_id" ng-model="cook_product_id" 
+                                placeholder="Enter id" required/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="name" class="col-md-4">3 Images</label>
+                      <div class="col-md-6">
+							<select name="type" >
+									<option value="">Status</option>
+									<option value="First">First Page</option>
+									<option value="Price">Price Page</option>
+									<option value="Back">Back Page</option>
+							</select>
+							                      </div>
+                    </div>
+                
+                     <div class="form-group  ">
+                      <label for="image" class="col-md-4">Select File </label>
+                      <div class="col-md-6">
+                        <input type="file" class="form-control" name="file" >
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-md-offset-4" style="margin-bottom: 50px;">
+            <center>
+              <input type="submit" class="btn btn-primary" value="Submit" />
+            </center>
+          </div>
+        </form>
+		  <script>
+		function getCookie(name)
+  {
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+  }
+  
+    if(cook_user_email = getCookie("cook_user_email")) 
+	document.myForm.cook_user_email.value =  cook_user_email;
+
+    if(cook_app_id = getCookie("cook_app_id")) 
+	document.myForm.cook_app_id.value =  cook_app_id;
+	  </script>
+	  
+	<!-- angular js -->
+	<script src="js/angular_product.js"></script>
+      </div>
+    </div>
+  </body>
+</html>
